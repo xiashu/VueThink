@@ -1,45 +1,47 @@
 <template>
-	<el-row class="panel m-w-1280">
-		<el-col :span="24" class="panel-top">
-			<el-col :span="4">
+	<el-row class="container">
+  		<el-col :span="24" class="header">
+			<el-col :span="4" :class="collapsed?'logo-collapse-width':'logo-width'">
         <template v-if="logo_type == '1'">
-          <img :src="img" class="logo">
-        </template>
-        <template v-else>
-          <span class="p-l-20">{{title}}</span>
+           <img :src="img" class="logo"> 
+        </template> 
+         <template v-else>
+          <span v-if="!collapsed" class="p-l-20 logo_title">{{title}}</span>
         </template>
 			</el-col>
-			<el-col :span="16" class="ofv-hd">
-				<div class="fl p-l-20 p-r-20 top-menu" :class="{'top-active': menu.selected}" v-for="menu in topMenu" @click="switchTopMenu(menu)">{{menu.title}}</div>
+			<el-col :span="4">
+				<div class="tools" @click.prevent="collapse">
+					<i class="fa fa-align-justify"></i>
+				</div>
 			</el-col>
-			<el-col :span="4" class="pos-rel">
-				<el-dropdown @command="handleMenu" class="user-menu">
-		      <span class="el-dropdown-link c-gra" style="cursor: default">
-		        {{username}}&nbsp;&nbsp;<i class="fa fa-user" aria-hidden="true"></i>
-		      </span>
-		      <el-dropdown-menu slot="dropdown">
-		        <el-dropdown-item command="changePwd">修改密码</el-dropdown-item>
-		        <el-dropdown-item command="logout">退出</el-dropdown-item>
-		      </el-dropdown-menu>
-		    </el-dropdown>
+			<el-col :span="10" class="userinfo">
+				<el-dropdown @command="handleMenu">
+					<span class="el-dropdown-link userinfo-inner"> 
+            {{username}}&nbsp;&nbsp;<i class="fa fa-user" aria-hidden="true"></i></span>
+					<el-dropdown-menu slot="dropdown">
+						<el-dropdown-item command="changePwd">修改密码</el-dropdown-item>
+						<el-dropdown-item command="logout">退出登录</el-dropdown-item>
+					</el-dropdown-menu>
+				</el-dropdown>
 			</el-col>
 		</el-col>
-		<el-col :span="24" class="panel-center">
-			<!--<el-col :span="4">-->
-			<aside class="w-180 ovf-hd" v-show="!showLeftMenu">
-				<leftMenu :menuData="menuData" :menu="menu" ref="leftMenu"></leftMenu>
+ 
+ 
+		<el-col :span="24" class="main">
+      <aside :class="collapsed?'menu-collapsed':'menu-expanded'">
+				<leftMenu  :menuData="menuData" :menu="menu" :collapsed="collapsed" ref="leftMenu"></leftMenu>
 			</aside>
-			<section class="panel-c-c" :class="{'hide-leftMenu': hasChildMenu}">
-				<div class="grid-content bg-purple-light">
-					<el-col :span="24">
+ 
+      <section class="content-container">
+				 <div class="grid-content bg-purple-light">
+					<el-col :span="24" class="content-wrapper">
 						<transition name="fade" mode="out-in" appear>
-							<router-view v-loading="showLoading"></router-view>
+							<router-view></router-view>
 						</transition>
 					</el-col>
 				</div>
-			</section>
+			</section> 
 		</el-col>
-
 		<changePwd ref="changePwd"></changePwd>
 
 	</el-row>
@@ -54,40 +56,7 @@
 	.fade-leave-active {
 		opacity: 0
 	}
-	
-	.panel {
-		position: absolute;
-		top: 0px;
-		bottom: 0px;
-		width: 100%;
-	}
-	
-	.panel-top {
-		height: 60px;
-		line-height: 60px;
-		background: #1F2D3D;
-		color: #c0ccda;
-	}
-	
-	.panel-center {
-		background: #324057;
-		position: absolute;
-		top: 60px;
-		bottom: 0px;
-		overflow: hidden;
-	}
-	
-	.panel-c-c {
-		background: #f1f2f7;
-		position: absolute;
-		right: 0px;
-		top: 0px;
-		bottom: 0px;
-		left: 180px;
-		overflow-y: scroll;
-		padding: 20px;
-	}
-	
+  
 	.logout {
 		background: url(../assets/images/logout_36.png);
 		background-size: contain;
@@ -113,9 +82,133 @@
 		color: #c0ccda;
 		text-align: center;
 	}
-	.hide-leftMenu {
-		left: 0px;
+ 
+  
+  .tools{
+				padding: 0px 23px;
+				width:14px;
+				height: 60px;
+				line-height: 60px;
+				cursor: pointer;
+        color: #000;
+			}
+ 	.menu-collapsed{
+				flex:0 0 60px;
+				width: 60px;
 	}
+	.menu-expanded{
+			flex:0 0 230px; 
+			width: 230px ;       
+	}
+
+  aside {
+		flex:0 0 230px;
+		width: 230px;
+    background: #001529;
+  }
+
+	.el-menu{
+			height: 100%;
+      background: #001529!important;
+     
+	}
+ 
+  .collapsed {
+
+      width:60px;
+  }
+	 .item{
+			position: relative;
+	}
+
+.content-container {
+		 
+		flex:1;		 
+	  overflow-y: scroll;
+    padding: 10px;
+}
+
+.breadcrumb-container .title {
+ 
+		width: 200px;
+		float: left;
+		color: #475669;
+}
+
+.breadcrumb-inner {
+		 float: right;				 
+	}
+ 
+ 	.content-wrapper {
+					background-color: #fff;
+					box-sizing: border-box;
+} 
+
+	.container {
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		width: 100%;
+  }
+
+	.header {
+		height: 60px;
+		line-height: 60px;
+	 	background: white;
+		color: #c0ccda;
+  }
+	
+  .userinfo {
+				text-align: right;
+				padding-right: 35px;
+				float: right;
+  }
+		.header			.userinfo-inner {
+					cursor: pointer;
+					color: #000;
+    }
+
+ .main {
+			display: flex;
+			position: absolute;
+			top: 60px;
+			bottom: 0px;
+			overflow: hidden; 
+      background: #f1f2f7;
+}
+
+.logo-width{
+  width:230px;
+  background: #002140;
+}
+.logo-collapse-width{
+  width:60px
+}
+
+.el-menu{
+    height: 100%;
+   
+  }
+.submenu{
+      position:absolute;
+      top:0px;
+      left:60px;
+      z-index:99999;
+      height:auto;
+      display:none;
+      background-color: #000c17;
+    }
+.logo_title{
+    font-size: 20px;
+    color: white;
+    font-family: "Myriad Pro","Helvetica Neue",Arial,Helvetica,sans-serif;
+    font-weight: 600;
+}
+
+.content-wrapper{
+  padding:5px;
+}
+
 </style>
 <script>
   import leftMenu from './Common/leftMenu.vue'
@@ -134,7 +227,8 @@
         module: null,
         img: '',
         title: '',
-        logo_type: null
+        logo_type: null,
+        collapsed:false,
       }
     },
     methods: {
@@ -189,10 +283,12 @@
         this.$refs.changePwd.open()
       },
       getTitleAndLogo() {
+     
         this.apiPost('admin/base/getConfigs').then((res) => {
+      
           this.handelResponse(res, (data) => {
             document.title = data.SYSTEM_NAME
-            this.logo_type = data.LOGO_TYPE
+            this.logo_type = data.LOGO_TYPE           
             this.title = data.SYSTEM_NAME
             this.img = window.HOST + data.SYSTEM_LOGO
           })
@@ -200,7 +296,10 @@
       },
       getUsername() {
         this.username = Lockr.get('userInfo').username
-      }
+      },
+      collapse:function(){
+				this.collapsed=!this.collapsed;
+			},
     },
     created() {
       this.getTitleAndLogo()
@@ -214,10 +313,12 @@
         return
       }
       this.getUsername()
+      
       let menus = Lockr.get('menus')
       this.menu = this.$route.meta.menu
       this.module = this.$route.meta.module
       this.topMenu = menus
+    
       _(menus).forEach((res) => {
         if (res.module == this.module) {
           this.menuData = res.child

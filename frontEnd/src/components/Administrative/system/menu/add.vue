@@ -17,7 +17,7 @@
 			</el-form-item>
 			<el-form-item label="上级菜单" prop="pid">
 				<el-select v-model="form.pid" placeholder="上级菜单" class="w-200">
-					<el-option v-for="item in options" :label="item.title" :value="item.id"></el-option>
+					<el-option v-for="item in options"   :key="item.id" :label="item.title" :value="item.id"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="路径">
@@ -31,6 +31,9 @@
 			</el-form-item>
 			<el-form-item label="排序">
 				<el-input v-model="form.sort" class="h-40 w-200"></el-input>
+			</el-form-item>
+      <el-form-item label="图标">
+				<el-input v-model="form.icon" class="h-40 w-200"></el-input>
 			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" @click="add('form')" :loading="isLoading">提交</el-button>
@@ -59,6 +62,7 @@
           url: '',
           module: '',
           menu: '',
+          icon:'',
           sort: ''
         },
         options: [{ id: 0, title: '无' }],

@@ -6,7 +6,7 @@
       </el-form-item>
       <el-form-item label="父级用户组" prop="pid">
         <el-select v-model="form.pid" placeholder="父级用户组" class="w-200">
-          <el-option v-for="item in options" :label="item.title" :value="item.id"></el-option>
+          <el-option v-for="item in options" :key="item.id" :label="item.title" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="备注">
@@ -29,7 +29,7 @@
                 <el-checkbox v-model="childItem.check" @change="selectModuleRule(childItem, item, childItem.child)">{{childItem.else}}</el-checkbox>
               </div>
               <div class="p-l-40 bor-b-ccc bg-gra">
-                <el-checkbox v-for="grandChildItem in childItem.child" v-model="grandChildItem.check" @change="selectActionRule(grandChildItem, childItem, item)">{{grandChildItem.else}}</el-checkbox>
+                <el-checkbox v-for="grandChildItem in childItem.child" :key="grandChildItem.id"   v-model="grandChildItem.check" @change="selectActionRule(grandChildItem, childItem, item)">{{grandChildItem.else}}</el-checkbox>
               </div>
             </div>
           </div>

@@ -51,8 +51,8 @@ export default {
 	body {
 		margin: 0px;
 		padding: 0px;
-		background: #1F2D3D;
-		font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+		background-color: #f0f2f5;
+	    font-family: "Monospaced Number","Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
 		font-weight: 400;
 		-webkit-font-smoothing: antialiased;
 	}

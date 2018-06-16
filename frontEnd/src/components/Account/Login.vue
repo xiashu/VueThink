@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
-      <h3 class="title">{{systemName}}</h3>
+      <h3 class="title">VueThink管理后台</h3>
       <el-form-item prop="username">
         <el-input type="text" v-model="form.username" auto-complete="off" placeholder="账号"></el-input>
       </el-form-item>
@@ -141,16 +141,16 @@
 }
 .card-box {
 	padding: 20px;
-	/*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
+ 
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	background-clip: padding-box;
 	margin-bottom: 20px;
-	background-color: #F9FAFC;
+ 
 	margin: 120px auto;
 	width: 400px;
-	border: 2px solid #8492A6;
+ 
 }
 
 .title {
